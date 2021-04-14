@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: io.github.showthat:myCommonUtils:0.1.5@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1769c4e27d818ea5553cfe10be1b9998/jetified-myCommonUtils-0.1.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1769c4e27d818ea5553cfe10be1b9998/jetified-myCommonUtils-0.1.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1769c4e27d818ea5553cfe10be1b9998/jetified-myCommonUtils-0.1.5/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

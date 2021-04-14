@@ -2,14 +2,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 
-ext {
-    PUBLISH_GROUP_ID = 'io.github.showthat'
-    PUBLISH_VERSION = '0.1.0'
-    PUBLISH_ARTIFACT_ID = 'myCommonUtils'
-}
-
-
-
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     if (project.plugins.findPlugin("com.android.library")) {
@@ -59,13 +51,14 @@ publishing {
             groupId PUBLISH_GROUP_ID
             artifactId PUBLISH_ARTIFACT_ID
             version PUBLISH_VERSION
+
             if (project.plugins.findPlugin("com.android.library")) {
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
             } else {
                 artifact("$buildDir/libs/${project.getName()}-${version}.jar")
             }
 
-            artifact androidSourcesJar
+//            artifact androidSourcesJar
 
             pom {
                 name = PUBLISH_ARTIFACT_ID
@@ -89,9 +82,15 @@ publishing {
                     developerConnection = 'scm:git:ssh://github.com:showthat/MyCommonUtils.git'
                     url = 'https://github.com/showthat/MyCommonUtils'
                 }
-                withXml {
-                    def dependenciesNode = asNode().appendNode('dependencies')
 
+                withXml {
+                    def repositoriesNode = asNode().appendNode('repositories')
+                    def repositoryNode = repositoriesNode.appendNode('repository')
+                    repositoryNode.appendNode('id', 'kakao-repo')
+                    repositoryNode.appendNode('name', 'kakao-repo')
+                    repositoryNode.appendNode('url', 'http://devrepo.kakao.com:8088/nexus/content/groups/public/')
+
+                    def dependenciesNode = asNode().appendNode('dependencies')
                     project.configurations.implementation.allDependencies.each {
                         def dependencyNode = dependenciesNode.appendNode('dependency')
                         dependencyNode.appendNode('groupId', it.group)
@@ -106,8 +105,8 @@ publishing {
         maven {
             name = "sonatype"
 
-            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 
             credentials {

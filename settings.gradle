@@ -1,3 +1,4 @@
+include ':DHStringUtils'
 include ':myCommonUtils'
 include ':app'
 rootProject.name = "MyCommonUtils"
